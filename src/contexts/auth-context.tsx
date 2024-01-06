@@ -1,5 +1,6 @@
 import { User, onAuthStateChanged, signOut } from 'firebase/auth';
 import { createContext, ReactNode, useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import auth from './../firebase/firebase.ts';
 
 interface Props {
@@ -15,7 +16,7 @@ export const AuthContext = createContext({
 
 const AuthProvider = ({ children }: Props) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -31,7 +32,7 @@ const AuthProvider = ({ children }: Props) => {
   // create logOut 
   const logOut = () => {
     setCurrentUser(null);
-    navigate("/");
+    // navigate("/");
     return signOut(auth);
   }
 
