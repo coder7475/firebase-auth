@@ -16,6 +16,8 @@ export const AuthContext = createContext({
 
 const AuthProvider = ({ children }: Props) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [count, setCount] = useState(0)
+
   // const navigate = useNavigate();
 
   useEffect(() => {
@@ -39,7 +41,9 @@ const AuthProvider = ({ children }: Props) => {
   const authInfo = {
     currentUser,
     setCurrentUser,
-    logOut
+    logOut,
+    count,
+    setCount
   };
 
   return (
