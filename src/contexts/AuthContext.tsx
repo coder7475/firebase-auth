@@ -1,4 +1,4 @@
-import { User } from 'firebase/auth';
+import { User, onAuthStateChanged, signOut } from 'firebase/auth';
 import { createContext, ReactNode, useState, useEffect } from 'react';
 import auth from './../firebase/firebase.ts';
 
@@ -10,26 +10,35 @@ export const AuthContext = createContext({
   currentUser: {} as User | null,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   setCurrentUser: (_user:User) => {},
-  signOut: () => {}
+  logOut: () => {}
 });
 
 const AuthProvider = ({ children }: Props) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChange(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setCurrentUser(user);
       }
-      
+
     });
 
     return unsubscribe;
-  }, [currentUser])
+  }, [currentUser]);
+
+  // create logOut 
+  const logOut = () => {
+    setCurrentUser(null);
+    navigate("/");
+    return signOut(auth);
+  }
 
   const authInfo = {
     currentUser,
-    setCurrentUser
+    setCurrentUser,
+    logOut
   };
 
   return (
