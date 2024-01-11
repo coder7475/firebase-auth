@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import "../App.css";
 import reactLogo from "../assets/react.svg";
 
@@ -8,14 +8,20 @@ const defaultFormFields = {
   password: "",
 };
 
+
 const Home = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  console.log(formFields);
+  // const resetFormFields = () => {
+  //   return setFormFields(defaultFormFields);
+  // };
 
-  const resetFormFields = () => {
-    return setFormFields(defaultFormFields);
-  };
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setFormFields({ ...formFields, [name]: value})
+  }
 
   return (
     <div>
@@ -32,6 +38,7 @@ const Home = () => {
               name="email"
               value={email}
               placeholder="Email"
+              onChange={handleChange}
               required
             />
           </div>
@@ -41,6 +48,7 @@ const Home = () => {
               name="password"
               value={password}
               placeholder="Password"
+              onChange={handleChange}
               required
             />
           </div>
