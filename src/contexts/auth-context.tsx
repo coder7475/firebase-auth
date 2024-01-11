@@ -1,4 +1,4 @@
-import { User, onAuthStateChanged, signOut } from "firebase/auth";
+import { User, onAuthStateChanged, signOut, signInWithEmailAndPassword } from "firebase/auth";
 import { createContext, ReactNode, useState, useEffect } from "react";
 // import { useNavigate } from 'react-router-dom';
 import auth from "./../firebase/firebase.ts";
@@ -37,12 +37,22 @@ const AuthProvider = ({ children }: Props) => {
     return signOut(auth);
   };
 
+  export const signInUser = async (
+    email: string, 
+    password: string
+  ) => {
+    if (!email && !password) return;
+
+    return await signInWithEmailAndPassword(auth, email, password)
+  }
+
   const authInfo = {
     currentUser,
     setCurrentUser,
     logOut,
     count,
     setCount,
+    signInUser
   };
 
   return (
