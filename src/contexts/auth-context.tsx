@@ -1,22 +1,22 @@
-import { User, onAuthStateChanged, signOut } from 'firebase/auth';
-import { createContext, ReactNode, useState, useEffect } from 'react';
+import { User, onAuthStateChanged, signOut } from "firebase/auth";
+import { createContext, ReactNode, useState, useEffect } from "react";
 // import { useNavigate } from 'react-router-dom';
-import auth from './../firebase/firebase.ts';
+import auth from "./../firebase/firebase.ts";
 
 interface Props {
-  children?: ReactNode
+  children?: ReactNode;
 }
 
 export const AuthContext = createContext({
   currentUser: {} as User | null,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setCurrentUser: (_user:User) => {},
-  logOut: () => {}
+  setCurrentUser: (_user: User) => {},
+  logOut: () => {},
 });
 
 const AuthProvider = ({ children }: Props) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   // const navigate = useNavigate();
 
@@ -25,25 +25,24 @@ const AuthProvider = ({ children }: Props) => {
       if (user) {
         setCurrentUser(user);
       }
-
     });
 
     return unsubscribe;
   }, [currentUser]);
 
-  // create logOut 
+  // create logOut
   const logOut = () => {
     setCurrentUser(null);
     // navigate("/");
     return signOut(auth);
-  }
+  };
 
   const authInfo = {
     currentUser,
     setCurrentUser,
     logOut,
     count,
-    setCount
+    setCount,
   };
 
   return (
