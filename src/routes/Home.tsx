@@ -39,10 +39,7 @@ const Home = () => {
     const { name, value } = event.target
     setFormFields({...formFields, [name]: value })
   }
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormFields({ ...formFields, [name]: value})
-  }
+ 
 
   return (
     <div>

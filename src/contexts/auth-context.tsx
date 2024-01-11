@@ -37,7 +37,7 @@ const AuthProvider = ({ children }: Props) => {
     return signOut(auth);
   };
 
-  export const signInUser = async (
+  const signInUser = async (
     email: string, 
     password: string
   ) => {
@@ -48,8 +48,8 @@ const AuthProvider = ({ children }: Props) => {
 
   const authInfo = {
     currentUser,
-    setCurrentUser,
     logOut,
+    setCurrentUser,
     count,
     setCount,
     signInUser
